@@ -1,96 +1,200 @@
+<!-- filepath: birthday-wish-app/index2.html -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="/_vercel/insights/script.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
-    />
-    <title>Vercel HTML Starter</title>
-    <meta
-      name="description"
-      content="High-performance HTML based website template."
-    />
-  </head>
-  <body>
-    <h1>Vercel HTML Starter</h1>
-    <p>
-      This template is a simple, but powerful single
-      <code>index.html</code> file deployed to
-      <a href="https://vercel.com">Vercel</a>. When your site is deployed, all
-      static assets (like HTML, JavaScript, CSS, images, and more) are deployed
-      globally to every
-      <a href="https://vercel.com/docs/concepts/edge-network/overview"
-        >Vercel Edge Network</a
-      >
-      region.
-    </p>
-    <h2>Simple, privacy-friendly analytics</h2>
-    <p>
-      Want to understand your visitor traffic? Vercel Analytics gives you
-      first-party, privacy-friendly traffic analytics for your HTML site. This
-      template is already configured using the following script:
-    </p>
-    <pre><code>&lt;script defer src="/_vercel/insights/script.js"&gt;&lt;/script&gt;</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/analytics">Vercel Analytics</a>.
-    </p>
-    <h2>Integrated with git</h2>
-    <p>
-      Deploying updates to your site is as simple as
-      <code>git push</code> thanks to Vercel's advanced
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-      Support for GitHub, GitLab, Bitbucket is zero-configuration, and with the
-      flexible Vercel CLI and API, you can integrate with any tool possible.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-    </p>
-    <h2>Fast <code>gzip</code> compression</h2>
-    <p>
-      To help ensure the smallest possible file sizes for your static assets,
-      the Vercel Edge Network compresses files by default using
-      <code>gzip</code>. You can also optionally use
-      <code>brotli</code> compressesion if you prefer.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/edge-network/compression"
-        >compression</a
-      >.
-    </p>
-    <h2>Advanced routing configuration</h2>
-    <p>
-      Vercel gives you a variety of ways to configure the routing of your
-      website. For example, adding redirects, rewrites, or headers to your page.
-      While you can use <code>vercel.json</code> to define these through JSON,
-      you can also express your routing configuration as code using
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-    <p>
-      Middleware runs before the
-      <a href="https://vercel.com/docs/concepts/edge-network/caching"
-        >Vercel Edge Network Cache</a
-      >, so you can configure routing exactly as your application needs. For
-      example, this template uses <code>middleware.js</code> defined in the root
-      of the repository to add additional security headers to the site:
-    </p>
-    <pre><code>referrer-policy: origin-when-cross-origin
-strict-transport-security: max-age=31536000; includeSubDomains; preload
-x-content-type-options: nosniff
-x-dns-prefetch-control: on
-x-frame-options: DENY</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday!</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Tone.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right top, #65a30d, #84cc16, #a3e635, #bef264, #d9f99d);
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -150px;
+      animation: float 10s ease-in-out infinite, sway 4s ease-in-out infinite alternate;
+      opacity: 0.8;
+      font-size: 50px;
+      z-index: 1;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-100vh); }
+    }
+
+    @keyframes sway {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(50px); }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 1s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center text-gray-800 relative selection:bg-yellow-300">
+
+  <!-- Balloons -->
+  <div id="balloon-container" class="absolute inset-0 z-0"></div>
+
+  <!-- Main Card -->
+  <div class="bg-white bg-opacity-90 backdrop-blur-xl rounded-3xl shadow-2xl p-6 sm:p-10 w-[90%] max-w-xl z-10 text-center">
+    
+    <!-- Intro Section -->
+    <div id="intro-container" class="hidden">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 animate-pulse fade-in-up">
+        Happy Birthday! Swanthana...
+      </h1>
+      <div id="image-container" class="my-4 hidden">
+        <img src="Screenshot_20250808_191013_Instagram.jpg" alt="Birthday" class="mx-auto rounded-xl shadow-lg w-full max-w-xs fade-in-up" style="animation-delay: 0.5s;">
+      </div>
+    </div>
+
+    <!-- Message Area -->
+    <p id="message-text" class="text-lg sm:text-xl font-medium min-h-[80px] flex items-center justify-center mb-6"></p>
+
+    <!-- Buttons -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button id="start-button" class="start-button bg-blue-500 text-white font-semibold py-3 px-6 rounded-full shadow-md hover:bg-blue-600 transition hidden:opacity-50">
+        Click Me
+      </button>
+      <button id="next-button" class="next-button bg-green-500 text-white font-semibold py-3 px-6 rounded-full shadow-md hover:bg-green-600 transition hidden">
+        Next
+      </button>
+      <button id="gift-button" class="gift-button bg-pink-500 text-white font-semibold py-3 px-6 rounded-full shadow-md hover:bg-pink-600 transition hidden">
+        Your Gift!
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const messages = [
+      "Happy Birthday, Swanthana! 🎉",
+      "On this special day, I wish you all the happiness in the world.",
+      "You deserve all the love and happiness in the world. Happy birthday!",
+      "I hope your day is filled with joy, laughter, and everything you wished for.",
+      "Wishing you a year ahead full of success, happiness, and incredible adventures.",
+      "I'm so glad you're in my life. You're an amazing person!",
+      "You are more than a normal friend to me.",
+      "You are my bestest friend I ever had and I think I will never have.",
+      "If I wanted to, I could create something else big but it wasn't that easy to think.",
+      "Then I thought — I can create websites, right? So I created a simple birthday wishing page for you.",
+      "I know it is not that good but I tried my best.",
+      "I hope you like this one more little gift (I think)."
+    ];
+
+    const messageText = document.getElementById('message-text');
+    const startButton = document.getElementById('start-button');
+    const nextButton = document.getElementById('next-button');
+    const giftButton = document.getElementById('gift-button');
+    const introContainer = document.getElementById('intro-container');
+    const imageContainer = document.getElementById('image-container');
+
+    let currentIndex = 0;
+
+    function showMessage() {
+      messageText.textContent = messages[currentIndex];
+    }
+
+    startButton.addEventListener('click', async () => {
+      startButton.classList.add('hidden');
+      if (Tone.context.state !== 'running') await Tone.start();
+      Tone.Transport.start();
+
+      introContainer.classList.remove('hidden');
+      imageContainer.classList.remove('hidden');
+
+      setTimeout(() => nextButton.classList.remove('hidden'), 1500);
+    });
+
+    nextButton.addEventListener('click', () => {
+      if (currentIndex === 0) introContainer.classList.add('hidden');
+
+      currentIndex++;
+      if (currentIndex < messages.length) {
+        showMessage();
+      }
+
+      if (currentIndex === messages.length) {
+        nextButton.classList.add('hidden');
+        giftButton.classList.remove('hidden');
+      }
+    });
+
+    giftButton.addEventListener('click', () => {
+      const wallpaperURL = 'https://drive.google.com/file/d/1dTX_lLgsPLr291hVZNdH6gbNRxQa73y-/view?usp=sharing';
+      window.open(wallpaperURL, '_blank');
+    });
+
+    // --- Tone.js Music ---
+    const synth = new Tone.Synth({
+      oscillator: { type: "triangle" },
+      envelope: { attack: 0.1, decay: 0.4, sustain: 0.5, release: 0.8 }
+    }).toDestination();
+
+    const reverb = new Tone.Reverb(1.5).toDestination();
+    synth.connect(reverb);
+    synth.volume.value = -20;
+
+    const melody = new Tone.Sequence((time, note) => {
+      synth.triggerAttackRelease(note, "4n", time);
+    }, [
+      "C4", "C4", "D4", "C4", "F4", "E4",
+      "C4", "C4", "D4", "C4", "G4", "F4",
+      "C4", "C4", "C5", "A4", "F4", "E4", "D4",
+      "A#4", "A#4", "A4", "F4", "G4", "F4"
+    ]);
+
+    melody.loop = true;
+    melody.start(0);
+    Tone.Transport.bpm.value = 100;
+
+    // --- Balloons ---
+    const balloonContainer = document.getElementById('balloon-container');
+    const balloonEmojis = ['🎈', '🎉', '🎊', '🥳'];
+
+    function createBalloon() {
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+      balloon.textContent = balloonEmojis[Math.floor(Math.random() * balloonEmojis.length)];
+
+      const startX = Math.random() * window.innerWidth;
+      const duration = Math.random() * 8 + 10;
+      const delay = Math.random() * 5;
+
+      balloon.style.left = `${startX}px`;
+      balloon.style.animationDuration = `${duration}s`;
+      balloon.style.animationDelay = `${delay}s`;
+      balloon.style.fontSize = `${Math.random() * 30 + 30}px`;
+
+      balloonContainer.appendChild(balloon);
+      setTimeout(() => balloon.remove(), duration * 1000);
+    }
+
+    window.onload = () => {
+      setInterval(createBalloon, 1000);
+      showMessage(); // Show first message after intro
+    };
+  </script>
+</body>
 </html>
